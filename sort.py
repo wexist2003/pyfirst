@@ -209,21 +209,21 @@ list_files = {
     "archives": {},
     "other": {}
 }
+if __name__ == '__main__':
+    # renaming
+    path = Path(sys.argv[1])
+    renamer_ff(path)
 
-# renaming
-path = Path(sys.argv[1])
-renamer_ff(path)
+    # create dist folders
+    for folder, append in appends.items():
+        try:
+            os.mkdir(f"{path}\{folder}")
+        except:
+            continue
 
-# create dist folders
-for folder, append in appends.items():
-    try:
-        os.mkdir(f"{path}\{folder}")
-    except:
-        continue
+    # take current files in dir and sorting
+    iter_dir(path, path)
 
-# take current files in dir and sorting
-iter_dir(path, path)
-
-# delete free dirs
-del_empty_dirs(path)
+    # delete free dirs
+    del_empty_dirs(path)
 
