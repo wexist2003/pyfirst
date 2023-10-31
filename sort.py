@@ -4,6 +4,59 @@ import shutil
 from pathlib import Path
 
 
+# z-folder
+def del_empty_dirs(path):
+    for way in os.listdir(path):
+        source = os.path.join(path, way)
+        if os.path.isdir(source):
+            del_empty_dirs(source)
+            if not os.listdir(source):
+                os.rmdir(source)
+                
+
+# sorter
+def iter_dir(path, dist_folders):
+    for file in path.iterdir():
+        for folder, append in appends.items():
+            if file.suffix in append:
+                if folder == "archives":
+                    try:
+                        name = file.name.removesuffix(file.suffix)
+                        shutil.unpack_archive(file, f"{dist_folders}\{folder}\{name}")
+                        # renamer_ff(f"{dist_folders}\{folder}")
+                        os.remove(file)
+                    except:
+                        continue
+                else:
+                    shutil.move(file, f"{dist_folders}\{folder}\{file.name}{file.suffix}")
+        if file.is_dir():
+            n = 0
+            for folder, append in appends.items():
+                if folder == file.name:
+                    n += 1
+            if n == 0:
+                iter_dir(file, dist_folders)
+
+
+def main(*argv):
+    path = Path(sys.argv[1])    
+    # renaming
+    renamer_ff(path)
+
+    # create dist folders
+    for folder, append in appends.items():
+        try:
+            os.mkdir(f"{path}\{folder}")
+        except:
+            continue
+
+    # take current files in dir and sorting
+    iter_dir(path, path)
+
+    # delete free dirs
+    del_empty_dirs(path)
+
+
 # transliterator
 def normalize(name):
     CYRILLIC = (
@@ -158,40 +211,6 @@ def renamer_ff(path):
     return
 
 
-# sorter
-def iter_dir(path, dist_folders):
-    for file in path.iterdir():
-        for folder, append in appends.items():
-            if file.suffix in append:
-                if folder == "archives":
-                    try:
-                        name = file.name.removesuffix(file.suffix)
-                        shutil.unpack_archive(file, f"{dist_folders}\{folder}\{name}")
-                        # renamer_ff(f"{dist_folders}\{folder}")
-                        os.remove(file)
-                    except:
-                        continue
-                else:
-                    shutil.move(file, f"{dist_folders}\{folder}\{file.name}{file.suffix}")
-        if file.is_dir():
-            n = 0
-            for folder, append in appends.items():
-                if folder == file.name:
-                    n += 1
-            if n == 0:
-                iter_dir(file, dist_folders)
-
-
-# z-folder
-def del_empty_dirs(path):
-    for way in os.listdir(path):
-        source = os.path.join(path, way)
-        if os.path.isdir(source):
-            del_empty_dirs(source)
-            if not os.listdir(source):
-                os.rmdir(source)
-
-
 # suffixes
 appends = {
     "images": [".jpeg", ".png", ".jpg", ".svg"],
@@ -209,21 +228,7 @@ list_files = {
     "archives": {},
     "other": {}
 }
+
 if __name__ == '__main__':
-    # renaming
-    path = Path(sys.argv[1])
-    renamer_ff(path)
-
-    # create dist folders
-    for folder, append in appends.items():
-        try:
-            os.mkdir(f"{path}\{folder}")
-        except:
-            continue
-
-    # take current files in dir and sorting
-    iter_dir(path, path)
-
-    # delete free dirs
-    del_empty_dirs(path)
+    main(sys.argv)
 
