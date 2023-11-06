@@ -22,13 +22,13 @@ def iter_dir(path, dist_folders):
                 if folder == "archives":
                     try:
                         name = file.name.removesuffix(file.suffix)
-                        shutil.unpack_archive(file, f"{dist_folders}\{folder}\{name}")
+                        shutil.unpack_archive(file, f"{dist_folders}\\{folder}\\{name}")
                         # renamer_ff(f"{dist_folders}\{folder}")
                         os.remove(file)
                     except:
                         continue
                 else:
-                    shutil.move(file, f"{dist_folders}\{folder}\{file.name}{file.suffix}")
+                    shutil.move(file, f"{dist_folders}\\{folder}\\{file.name}{file.suffix}")
         if file.is_dir():
             n = 0
             for folder, append in appends.items():
@@ -46,7 +46,7 @@ def main(*argv):
     # create dist folders
     for folder, append in appends.items():
         try:
-            os.mkdir(f"{path}\{folder}")
+            os.mkdir(f"{path}\\{folder}")
         except:
             continue
 
@@ -202,11 +202,11 @@ def renamer_ff(path):
         suffix = file.suffix
         new_name = normalize(name_x.removesuffix(suffix))
         if file.is_dir():
-            sub_dir_path = f"{path}\{new_name}"
+            sub_dir_path = f"{path}\\{new_name}"
             os.rename(file, sub_dir_path)
             renamer_ff(Path(sub_dir_path))
         else:
-            new_file_name = f"{path}\{new_name}{suffix}"
+            new_file_name = f"{path}\\{new_name}{suffix}"
             os.rename(file, new_file_name)
     return
 

@@ -1,0 +1,15 @@
+Metadata-Version: 2.1
+Name: clean-folder-wexist2003
+Version: 0.0.7
+Summary: File sorter
+Author-email: wexist <neoscerberis@gmail.com>
+Project-URL: Homepage, https://github.com/wexist2003/pyfirst
+Project-URL: Bug Tracker, https://github.com/wexist2003/pyfirst
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+This is my package from 7 modul Python Developer course in GoIT

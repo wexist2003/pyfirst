@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "clean_folder_wexist2003"
+version = "0.0.7"
+authors = [
+  { name="wexist", email="neoscerberis@gmail.com" },
+]
+description = "File sorter"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.entry-points.console_scripts] 
+clean-folder = 'clean_folder.sort:main'
+
+
+[project.urls]
+"Homepage" = "https://github.com/wexist2003/pyfirst"
+"Bug Tracker" = "https://github.com/wexist2003/pyfirst"
