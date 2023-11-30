@@ -44,13 +44,25 @@ class Record:
         print(f"{self} add_phone = {self.phones}")
 
     def remove_phone(self, user_phone):
-        self.phones.remove(user_phone)
-        print(f"{self} remove_phone = {self.phones}")
+        # self.phones.remove(user_phone)
+        # print(f"{self} remove_phone = {self.phones}")
+        for phone in self.phones:
+            if phone.value == user_phone:
+                self.phones.remove(phone)
+                print(f"{self} remove_phone = {[p.value for p in self.phones]}")
+                return
+        # print(f"Phone number {user_phone} is not in the list.")
+        raise ValueError
 
     def edit_phone(self, old_phone, new_phone):
         try:
-            self.phones[old_phone] = new_phone
-            print(f"{self} edit_phone = {self.phones}")
+            # self.phones[old_phone] = new_phone
+            # print(f"{self} edit_phone = {self.phones}")
+            phone_to_edit = next((p for p in self.phones if p.value == old_phone), None)
+            if phone_to_edit:
+                phone_to_edit.value = new_phone
+            else:
+                raise ValueError
         except:
             raise ValueError
 
@@ -66,21 +78,26 @@ class Record:
 # Клас для зберігання та управління записами. Успадковується від UserDict, та містить логіку пошуку за записами до цього класу
 class AddressBook(UserDict):
     def add_record(self, addname):
-        new_dict = {addname.name.value: addname.phones}
-        print(f"{self} new dict = {new_dict}")
-        self.data.update(new_dict)
-        print(f"self.data = {self.data}")
+        # new_dict = {addname.name: addname.phones}
+        # print(f"{self} new dict = {new_dict}")
+        # self.data.update(new_dict)
+        # print(f"self.data = {self.data}")
+        self.data[addname.name.value] = addname
+        print(f"new dict = {self.data}")
 
     def find(self, user_name):
-        print(f"self = {self}")
-        print(f"FIND {user_name} in: {self.data}")
-        for i in self.data:
-            print(f"i = {i}")
-            if i == user_name:
-                print(f"GET {self.data[user_name]}")
-                print(f"RETURN '{user_name}': {self.data[user_name]}'")
-                return f"{user_name}: {self.data[user_name]}'"
+        # print(f"self = {self}")
+        # print(f"FIND {user_name} in: {self.data}")
+        # for i in self.data:
+        #     print(f"i = {i}")
+        #     if i == user_name:
+        #         print(f"GET {self.data[user_name]}")
+        #         print(f"RETURN '{user_name}': {self.data[user_name]}'")
+        #         return f"{user_name}: {self.data[user_name]}'"
+        return self.data.get(user_name)
 
     def delete(self, user_name):
-        self.data.pop(user_name)
-        return
+        # self.data.pop(user_name)
+        # return
+        if user_name in self.data:
+            del self.data[user_name]
