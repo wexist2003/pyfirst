@@ -1,126 +1,86 @@
-def input_error(function):
-    def inner(*args, **kwargs):
+from collections import UserDict
+import re
+
+
+#  Базовий клас для полів запису. Буде батьківським для всіх полів, у ньому реалізується логіка загальна для всіх полів
+class Field:
+    def __init__(self, value):
+        self.value = value
+
+    def __str__(self):
+        return str(self.value)
+
+
+# Клас для зберігання імені контакту. Обов'язкове поле.
+class Name(Field):
+    def __init__(self, name):
+        self.value = name
+        print(f"name = {self.value}")
+
+
+# Клас для зберігання номера телефону. Має валідацію формату (10 цифр). Необов'язкове поле з телефоном та таких один запис Record може містити декілька
+class Phone(Field):
+    # Реалізовано валідацію номера телефону (має бути 10 цифр).
+    def __init__(self, number):
+        value = ""
+        numbers = re.findall("\d", number)
+        if len(numbers) == 10:
+            self.value = number
+            print(f"phone = {self.value}")
+        else:
+            raise ValueError
+
+
+#  Клас для зберігання інформації про контакт, включаючи ім'я та список телефонів. Відповідає за логіку додавання/видалення/редагування необов'язкових полів та зберігання обов'язкового поля Name
+class Record:
+    def __init__(self, name):
+        self.name = Name(name)
+        self.phones = []
+        print(f"{self} record = {self.name} / {self.phones}")
+
+    def add_phone(self, user_phone):
+        new_phone = Phone(user_phone)
+        self.phones.append(new_phone)
+        print(f"{self} add_phone = {self.phones}")
+
+    def remove_phone(self, user_phone):
+        self.phones.remove(user_phone)
+        print(f"{self} remove_phone = {self.phones}")
+
+    def edit_phone(self, old_phone, new_phone):
         try:
-            return function(*args, **kwargs)
-        except KeyError:
-            return "Wrong name"
-        except ValueError as exception:
-            return exception.args[0]
-        except IndexError:
-            return "Give me name and phone please"
-        except TypeError:
-            return "Wrong command"
+            self.phones[old_phone] = new_phone
+            print(f"{self} edit_phone = {self.phones}")
+        except:
+            raise ValueError
 
-    return inner
+    def find_phone(self, user_phone):
+        for i in self.phones:
+            if i.value == user_phone:
+                return i
 
-
-@input_error
-def handler(command_list):
-    len_command = len(command_list)
-    match len_command:
-        case 2:
-            user_name = command_list[1]
-        case 3:
-            user_name = command_list[1]
-            user_phone = command_list[2]
-        case _:
-            pass
-
-    match command_list[0]:
-        case "add":
-            try:
-                return func_add(user_name, user_phone)
-            except UnboundLocalError:
-                raise ValueError("Give me name and phone please")
-                # return "Give me name and phone please"
-        case "change":
-            try:
-                return func_change(user_name, user_phone)
-            except UnboundLocalError:
-                raise ValueError("Give me name and phone please")
-                # return "Give me name and phone please"
-        case "exit":
-            return func_exit()
-        case "good bye":
-            return func_exit()
-        case "close":
-            return func_exit()
-        case "hello":
-            return func_hello()
-        case "phone":
-            try:
-                return func_phone(user_name)
-            except UnboundLocalError:
-                raise ValueError("Enter user name")
-                # return "Enter user name"
-        case "show all":
-            return func_show_all()
-        case _:
-            raise ValueError("Enter correct command")
-            # return "Enter correct command"
-    return
+    def __str__(self):
+        return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
 
 
-@input_error
-def func_add(user_name, user_phone):
-    new_contact = {user_name: user_phone}
-    phone_book.update(new_contact)
-    return "Added"
+# Клас для зберігання та управління записами. Успадковується від UserDict, та містить логіку пошуку за записами до цього класу
+class AddressBook(UserDict):
+    def add_record(self, addname):
+        new_dict = {addname.name.value: addname.phones}
+        print(f"{self} new dict = {new_dict}")
+        self.data.update(new_dict)
+        print(f"self.data = {self.data}")
 
+    def find(self, user_name):
+        print(f"self = {self}")
+        print(f"FIND {user_name} in: {self.data}")
+        for i in self.data:
+            print(f"i = {i}")
+            if i == user_name:
+                print(f"GET {self.data[user_name]}")
+                print(f"RETURN '{user_name}': {self.data[user_name]}'")
+                return f"{user_name}: {self.data[user_name]}'"
 
-@input_error
-def func_change(user_name, user_phone):
-    phone_book[user_name] = user_phone
-    return "Changed"
-
-
-@input_error
-def func_exit():
-    return "Good bye!"
-
-
-@input_error
-def func_hello():
-    return "How can I help you?"
-
-
-def main():
-    while True:
-        user_command = input("Enter your command:")
-        match user_command:
-            case ".":
-                break
-            case _:
-                if user_command.lower().startswith(
-                    "good bye"
-                ) or user_command.lower().startswith("show all"):
-                    alt_list = user_command.split(" ")
-                    command_list[0] = f"{alt_list[0].lower()} {alt_list[1].lower()}"
-                else:
-                    command_list = user_command.split(" ")
-                    command_list[0] = command_list[0].lower()
-                result = handler(command_list)
-                match result:
-                    case "Good bye!":
-                        print(result)
-                        break
-                    case _:
-                        print(result)
-
-
-@input_error
-def func_phone(user_name):
-    return phone_book[user_name]
-
-
-@input_error
-def func_show_all():
-    result = ""
-    for name, phone in phone_book.items():
-        result = result + f"{name} : {phone} \n"
-    return result.removesuffix(" \n")
-
-
-if __name__ == "__main__":
-    phone_book = {}
-    main()
+    def delete(self, user_name):
+        self.data.pop(user_name)
+        return
