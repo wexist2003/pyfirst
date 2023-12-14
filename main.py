@@ -1,6 +1,7 @@
 from collections import UserDict
 import re
-from datetime import datetime, timedelta
+from datetime import datetime
+import pickle
 
 
 #  Базовий клас для полів запису. Буде батьківським для всіх полів, у ньому реалізується логіка загальна для всіх полів
@@ -41,7 +42,7 @@ class Birthday(Field):
             self.value = birthday_date
 
 
-# Клас для зберігання номера телефону. Має валідацію формату (10 цифр). Необов'язкове поле з телефоном та таких один запис Record може містити декілька
+# Клас для зберігання  номера телефону. Має валідацію формату (10 цифр). Необов'язкове поле з телефоном та таких один запис Record може містити декілька
 class Phone(Field):
     def __init__(self, number):
         self.value = number
@@ -122,6 +123,22 @@ class AddressBook(UserDict):
     def find(self, user_name):
         return self.data.get(user_name)
 
+    def find_by_nums(self, nums):
+        result = []
+        for record in self.data.values():
+            for phone in record.phones:
+                if nums in phone.value:
+                    result.append(record)
+                    break
+        return result
+
+    def find_by_literals(self, literals):
+        result = []
+        for record in self.data.values():
+            if literals in record.name.value:
+                result.append(record)
+        return result
+
     def delete(self, user_name):
         if user_name in self.data:
             del self.data[user_name]
@@ -131,6 +148,15 @@ class AddressBook(UserDict):
 
     def iterator(self, N):
         return Iterable(self, N)
+
+    def save_to_disk(self, filename):
+        with open(filename, "wb") as fh:
+            pickle.dump(self, fh)
+
+    def load_from_disk(self, filename):
+        with open(filename, "rb") as fh:
+            unpacked = pickle.load(fh)
+            return unpacked
 
 
 class Iterable:
