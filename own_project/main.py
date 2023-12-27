@@ -3,6 +3,8 @@ import re
 from datetime import datetime
 import pickle
 
+# from abc import ABC, abstractmethod
+
 
 #  Базовий клас для полів запису. Буде батьківським для всіх полів, у ньому реалізується логіка загальна для всіх полів
 class Field:
@@ -23,14 +25,14 @@ class Field:
 class Name(Field):
     def __init__(self, name):
         self.value = name
-        print(f"name = {self.value}")
+        # print(f"name = {self.value}")
 
 
 # Клас для зберігання дати народження контакту. НЕ обов'язкове поле.
 class Birthday(Field):
     def __init__(self, birthday_date):
         self.value = birthday_date
-        print(f"bithday = {self.value}")
+        # print(f"bithday = {self.value}")
 
     @property
     def value(self):
@@ -55,7 +57,7 @@ class Phone(Field):
     def value(self, number):
         if len(re.findall("\d", number)) == 10:
             self.value = number
-            print(f"phone = {self.value}")
+            # print(f"phone = {self.value}")
         else:
             raise ValueError("Invalid phone number format")
 
@@ -65,15 +67,15 @@ class Record:
     def __init__(self, name, birthday=None):
         self.name = Name(name)
         self.phones = []
-        print(f"{self} record = {self.name} / {self.phones}")
+        # print(f"{self} record = {self.name} / {self.phones}")
         self.birthday = birthday
-        print(f"{self} birthday = {self.birthday}")
+        # print(f"{self} birthday = {self.birthday}")
 
     def add_phone(self, user_phone):
         try:
             new_phone = Phone(user_phone)
             self.phones.append(new_phone)
-            print(f"{self} add_phone = {self.phones}")
+            # print(f"{self} add_phone = {self.phones}")
         except ValueError as e:
             print(e)
 
@@ -81,7 +83,7 @@ class Record:
         for phone in self.phones:
             if phone.value == user_phone:
                 self.phones.remove(phone)
-                print(f"{self} remove_phone = {[p.value for p in self.phones]}")
+                # print(f"{self} remove_phone = {[p.value for p in self.phones]}")
                 return
         raise ValueError
 
@@ -118,7 +120,7 @@ class Record:
 class AddressBook(UserDict):
     def add_record(self, addname):
         self.data[addname.name.value] = addname
-        print(f"new dict = {self.data}")
+        # print(f"new dict = {self.data}")
 
     def find(self, user_name):
         return self.data.get(user_name)

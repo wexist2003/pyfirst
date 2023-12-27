@@ -8,7 +8,7 @@
 from collections import UserDict
 import unittest
 
-import main
+import own_project.main as main
 
 
 RED = "\033[91m"
