@@ -1,0 +1,4 @@
+[12:05:34] Addressbook has been loaded!
+[13:35:11] Addressbook has been loaded!
+[13:49:51] Addressbook has been loaded!
+[14:00:11] Addressbook has been loaded!

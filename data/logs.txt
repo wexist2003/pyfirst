@@ -55,3 +55,4 @@
 [13:19:47] Contact marco has been added.
 [13:19:47] Addressbook has been saved!
 [06:09:20] Addressbook has been loaded!
+[12:03:48] Addressbook has been loaded!
