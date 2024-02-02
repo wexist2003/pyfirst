@@ -45,7 +45,7 @@ def main(user):
 
 
 if __name__ == "__main__":
-    user = get.user(login)
+    user = get_user(login)
     password = input("Password: ")
     if password == user.password:
         main(user)

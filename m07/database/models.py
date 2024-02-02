@@ -10,7 +10,7 @@ Base = declarative_base()
 class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True)
-    login = Column(String(25))
+    login = Column(String(25), unique=True)
     password = Column(String(25))
 
 
@@ -21,7 +21,7 @@ class Todo(Base):
     description = Column(String(150), nullable=False, index=True)
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now())
-    user_id = Column(Integer, ForeignKey('users.id'))
+    user_id = Column('user_id',Integer, ForeignKey('users.id'))
     user = relationship(User)
     
 
