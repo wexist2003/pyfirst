@@ -30,18 +30,22 @@ login = my_arg.get("login")
 def main(user):
     match action:
         case "create":
-            create_todo(
-                title=title,
-            description=description, user=user)
+            create_todo(title=title, description=description, user=user)
         case "list":
             todos = get_all_todos(user)
+            for t in todos:
+                print(t.id, t.title, t.description, t.user.login)
         case "update":
-            t = update_todo(_id=_id, title=title,
-            description=description, user=user)
+            t = update_todo(_id=_id, title=title, description=description, user=user)
+            if t:
+                print(t.id, t.title, t.description, t.user.login)
+            else:
+                print('Not found')
         case "remove":
             r = remove_todo(_id=_id, user=user)
+            print('remove: {r}')
         case _:
-            print('Nothing')
+            print("Nothing")
 
 
 if __name__ == "__main__":
