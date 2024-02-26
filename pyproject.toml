@@ -17,6 +17,7 @@ mongoengine = "^0.27.0"
 lxml = "^5.1.0"
 requests = "^2.31.0"
 beautifulsoup4 = "^4.12.3"
+django = "^5.0.2"
 
 
 [build-system]
