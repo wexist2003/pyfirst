@@ -10,12 +10,13 @@
         <h5 class="card-title">Card title</h5>
         {% endcomment %}
         <p class="card-text">{{pic.description}}</p>
-        <a href="{% url 'app_instagram:edit' pic.id %}" class="btn btn-info"
+        <p class="card-text">{{pic.author_name}}</p>
+        {% comment %} <a href="{% url 'app_instagram:edit' pic.id %}" class="btn btn-info"
           >Edit</a
         >
         <a href="{% url 'app_instagram:remove' pic.id %}" class="btn btn-danger"
           >Delete</a
-        >
+        > {% endcomment %}
       </div>
     </div>
   </div>

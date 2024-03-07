@@ -22,64 +22,49 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link" href="{% url 'app_instagram:pictures' %}"
+                  >Quotes to Scrape</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Authors</a>
               </li>
               {% if user.is_authenticated %}
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'app_instagram:pictures' %}"
-                  >Pictures</a
-                >
-              </li>
-              <li class="nav-item">
                 <a class="nav-link" href="{% url 'app_instagram:upload' %}"
-                  >Upload</a
+                  >Upload Quotes</a
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'users:logout' %}">Logout</a>
-              </li>                
-              {% else %} 
+                <a class="nav-link" href="#">Upload Authors</a>
+              </li>
+              <li class="nav-item">
+                <form method="post" action="{% url 'users:logout' %}">
+                  {% csrf_token %}
+                  <button
+                    type="submit"
+                    class="nav-link"
+                    style="
+                      border: none;
+                      background: none;
+                      padding: 0;
+                      margin: 0;
+                      cursor: pointer;
+                    "
+                  >
+                    Logout
+                  </button>
+                </form>
+              </li>
+              {% else %}
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'users:login' %}">SignIn</a>
-              </li>           
+              </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'users:register' %}">SignUp</a>
               </li>
               {% endif %}
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Dropdown
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><hr class="dropdown-divider" /></li>
-                  <li>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-              </li>
             </ul>
-            <form class="d-flex" role="search">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button class="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form>
           </div>
         </div>
       </nav>

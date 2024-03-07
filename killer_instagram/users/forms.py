@@ -8,10 +8,10 @@ class RegisterForm(UserCreationForm):
         max_length=100, required=True, widget=TextInput(attrs={"class": "form-control"})
     )
     first_name = CharField(
-        max_length=150, widget=TextInput(attrs={"class": "form-control"})
+        max_length=150, required=False, widget=TextInput(attrs={"class": "form-control"})
     )
     last_name = CharField(
-        max_length=150, widget=TextInput(attrs={"class": "form-control"})
+        max_length=150, required=False, widget=TextInput(attrs={"class": "form-control"})
     )
     email = EmailField(
         max_length=150,
