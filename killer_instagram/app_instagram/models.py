@@ -16,6 +16,9 @@ class Picture(models.Model):
     description = models.CharField(max_length=150)
     path = models.ImageField(upload_to=update_filename)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    additional_description = models.TextField()  # Дополнительное текстовое описание
+    tags = models.CharField(max_length=200, blank=True)  # Список тегов (можно использовать CharField или ArrayField из django.contrib.postgres.fields)
+
 
 
     def __str__(self):

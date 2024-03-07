@@ -34,6 +34,8 @@ def upload(request):
 # @login_required
 def pictures(request):
     pictures = Picture.objects.all()
+    for pic in pictures:
+        pic.tags = pic.tags.split(',')    
     return render(
         request,
         "app_instagram/pictures.html",

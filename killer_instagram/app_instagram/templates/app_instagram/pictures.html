@@ -1,26 +1,29 @@
 {% extends "app_instagram/base.html" %} {% block content%}
 <h1>Your pictures</h1>
-<div class="row">
+<div class="container">
   {% for pic in pictures %}
-  <div class="col-md-4">
-    <div class="card" style="width: 18rem">
-      <img src="{{media}}{{pic.path}}" class="card-img-top" alt="pic" />
+  <div class="mb-4">
+    <div class="card">
       <div class="card-body">
-        {% comment %}
-        <h5 class="card-title">Card title</h5>
-        {% endcomment %}
-        <p class="card-text">{{pic.description}}</p>
-        <p class="card-text">{{pic.author_name}}</p>
-        {% comment %} <a href="{% url 'app_instagram:edit' pic.id %}" class="btn btn-info"
-          >Edit</a
-        >
-        <a href="{% url 'app_instagram:remove' pic.id %}" class="btn btn-danger"
-          >Delete</a
-        > {% endcomment %}
+        <h5 class="card-title" style="font-weight: bold; font-style: italic;">"{{ pic.description }}"</h5>
+        <p class="card-text">
+          by <span style="color: blue">{{ pic.additional_description }}</span>
+        </p>
+        <p class="card-text">
+          Tags: {% if pic.tags %} {% for tag in pic.tags %}
+          <span
+            style="
+              background-color: blue;
+              color: white;
+              padding: 2px 5px;
+              margin-right: 5px;
+            "
+            >{{ tag }}</span
+          >{% if not forloop.last %},{% endif %} {% endfor %} {% endif %}
+        </p>
       </div>
     </div>
   </div>
   {% endfor %}
 </div>
-
 {% endblock %}
