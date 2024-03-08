@@ -3,8 +3,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from django.conf import settings
-from .forms import PictureForm
-from .models import Picture
+from .forms import AuthorForm, PictureForm
+from .models import Author, Picture
 
 
 # Create your views here.
@@ -30,6 +30,21 @@ def upload(request):
         context={"title": "Web 9 Group!", "form": form},
     )
 
+@login_required
+def author_upload(request):
+    form = AuthorForm(instance=Author())
+    if request.method == "POST":
+        form = AuthorForm(request.POST, request.FILES, instance=Author())
+        if form.is_valid():
+            pic = form.save(commit=False)
+            pic.user = request.user
+            pic.save()
+            return redirect(to="app_instagram:authors")
+    return render(
+        request,
+        "app_instagram/author_upload.html",
+        context={"title": "Web 9 Group!", "form": form},
+    )
 
 # @login_required
 def pictures(request):
@@ -46,7 +61,21 @@ def pictures(request):
         },
     )
 
-
+# @login_required
+def authors(request):
+    pictures = Author.objects.all()
+    for pic in pictures:
+        pic.tags = pic.tags.split(' ')    
+    return render(
+        request,
+        "app_instagram/authors.html",
+        context={
+            "title": "Web 9 Group!",
+            "pictures": pictures,
+            "media": settings.MEDIA_URL,
+        },
+    )
+    
 # @login_required
 # def remove(request, pic_id):
 #     picture = Picture.objects.filter(pk=pic_id, user=request.user)

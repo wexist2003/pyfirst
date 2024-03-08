@@ -1,0 +1,38 @@
+{% extends "app_instagram/base.html" %} {% block content%}
+<h1>Автори</h1>
+<div class="container">
+  {% for pic in pictures %}
+  <div class="mb-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title" style="font-weight: bold">
+          {{ pic.description }}
+        </h5>
+        <h5 class="card-title" style="">
+          <span style="font-weight: bold">Народився:</span> {{ pic.born }}
+        </h5>
+        <p class="card-text">
+          <span style="font-weight: bold;">Опис життя:</span><br>
+          <span>{{ pic.additional_description }}</span>
+      </p>      
+        {% comment %}
+        <p class="card-text">
+          Tags: {% if pic.tags %} {% for tag in pic.tags %}
+          <span
+            style="
+              background-color: blue;
+              color: white;
+              padding: 2px 5px;
+              margin-right: 5px;
+            "
+            >{{ tag }}</span
+          >
+          {% endfor %} {% endif %}
+        </p>
+        {% endcomment %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -27,7 +27,7 @@
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Автори</a>
+                <a class="nav-link" href="{% url 'app_instagram:authors' %}">Автори</a>
               </li>
               {% if user.is_authenticated %}
               <li class="nav-item">
@@ -36,7 +36,7 @@
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Додати автора</a>
+                <a class="nav-link" href="{% url 'app_instagram:author_upload' %}">Додати автора</a>
               </li>
               <li class="nav-item">
                 <form method="post" action="{% url 'users:logout' %}">

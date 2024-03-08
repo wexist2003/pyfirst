@@ -23,3 +23,25 @@ class Picture(models.Model):
 
     def __str__(self):
         return f'{self.user.username}({self.user.email}): {self.path}'
+    
+
+def update_authorname(instance, filename):
+    upload_to = "uploads"
+    ext = filename.split(".")[-1]
+    filename = f"{uuid4().hex}.{ext}"
+    return os.path.join(upload_to, filename)
+
+
+# Create your models here.
+class Author(models.Model):
+    description = models.CharField(max_length=100)
+    born = models.CharField(max_length=100)
+    path = models.ImageField(upload_to=update_authorname)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    additional_description = models.TextField()  # Дополнительное текстовое описание
+    tags = models.CharField(max_length=200, blank=True)  # Список тегов (можно использовать CharField или ArrayField из django.contrib.postgres.fields)
+
+
+
+    def __str__(self):
+        return f'{self.user.username}({self.user.email}): {self.path}'

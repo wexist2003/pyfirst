@@ -1,5 +1,5 @@
 {% extends "app_instagram/base.html" %} {% block content%}
-<h1>SignUp</h1>
+<h1>Реєстрація</h1>
 <form method="post">
   {% csrf_token %}
   <div class="form-row">
@@ -11,14 +11,14 @@
   </div>
   <div class="form-row">
     <div class="mb-3">
-      <label class="form-label">First Name</label>
+      <label class="form-label">Прізвище</label>
       {{form.first_name}}
     </div>
     <span>{{form.errors.first_name}}</span>
   </div>  
   <div class="form-row">
     <div class="mb-3">
-      <label class="form-label">Last Name</label>
+      <label class="form-label">Ім'я</label>
       {{form.last_name}}
     </div>
     <span>{{form.errors.last_name}}</span>
@@ -32,18 +32,18 @@
   </div>    
   <div class="form-row">
     <div class="mb-3">
-      <label class="form-label">Password</label>
+      <label class="form-label">Пароль</label>
       {{form.password1}}
     </div>
     <span>{{form.errors.password1}}</span>
   </div>  
   <div class="form-row">
     <div class="mb-3">
-      <label class="form-label">Confirm password</label>
+      <label class="form-label">Повторіть пароль</label>
       {{form.password2}}
     </div>
     <span>{{form.errors.password2}}</span>
   </div>
-  <button type="submit" class="btn btn-primary">Sign Up</button>
+  <button type="submit" class="btn btn-primary">Зареєструватись</button>
 </form>
 {% endblock %}

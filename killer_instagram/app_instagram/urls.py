@@ -13,4 +13,7 @@ urlpatterns = [
     path("pictures/", views.pictures, name="pictures"),
     # path("pictures/edit/<int:pic_id>", views.edit, name="edit"),
     # path("pictures/remove/<int:pic_id>", views.remove, name="remove"),
+    path("author_upload/", views.author_upload, name="author_upload"),
+    path("authors/", views.authors, name="authors"),    
+    
 ]
