@@ -23,20 +23,20 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'app_instagram:pictures' %}"
-                  >Quotes to Scrape</a
+                  >Цитати</a
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Authors</a>
+                <a class="nav-link" href="#">Автори</a>
               </li>
               {% if user.is_authenticated %}
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'app_instagram:upload' %}"
-                  >Upload Quotes</a
+                  >Додати цитату</a
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Upload Authors</a>
+                <a class="nav-link" href="#">Додати автора</a>
               </li>
               <li class="nav-item">
                 <form method="post" action="{% url 'users:logout' %}">
@@ -52,16 +52,16 @@
                       cursor: pointer;
                     "
                   >
-                    Logout
+                    Вихід
                   </button>
                 </form>
               </li>
               {% else %}
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'users:login' %}">SignIn</a>
+                <a class="nav-link" href="{% url 'users:login' %}">Вхід</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'users:register' %}">SignUp</a>
+                <a class="nav-link" href="{% url 'users:register' %}">Реєстрація</a>
               </li>
               {% endif %}
             </ul>

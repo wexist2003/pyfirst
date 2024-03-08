@@ -5,10 +5,10 @@ from .models import Picture
 
 class PictureForm(ModelForm):
     description = CharField(
-        max_length=150, widget=TextInput(attrs={"class": "form-control"})
+        max_length=150, widget=Textarea(attrs={"class": "form-control"})
     )
-    path = ImageField(widget=FileInput(attrs={"class": "form-control"}))
-    additional_description = CharField(max_length=500, widget=Textarea(attrs={"class": "form-control"}))  # Поле для дополнительного текстового описания
+    path = ImageField(required=False, widget=FileInput(attrs={"class": "form-control"}))
+    additional_description = CharField(max_length=500, widget=TextInput(attrs={"class": "form-control"}))  # Поле для дополнительного текстового описания
     tags = CharField(max_length=100, required=False, widget=TextInput(attrs={"class": "form-control"}))  # Поле для списка тегов
 
 

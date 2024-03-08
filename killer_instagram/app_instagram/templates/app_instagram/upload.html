@@ -1,23 +1,29 @@
 {% extends "app_instagram/base.html" %} {% block content%}
-<h1>Upload file</h1>
-<form action="{% url 'app_instagram:upload' %}" method="post" enctype="multipart/form-data">
+<h1>Додати цитату</h1>
+<form
+  action="{% url 'app_instagram:upload' %}"
+  method="post"
+  enctype="multipart/form-data"
+>
   {% csrf_token %}
   <div class="mb-3">
-    <label class="form-label">Description</label>
+    <label class="form-label">Цитата:</label>
     {{form.description}}
   </div>
   <div class="mb-3">
-    <label class="form-label">Additional Description</label>
+    <label class="form-label">Автор:</label>
     {{ form.additional_description }}
   </div>
   <div class="mb-3">
-    <label class="form-label">Tags</label>
+    <label class="form-label">Теги:</label>
     {{ form.tags }}
-  </div> 
+  </div>
+  {% comment %}
   <div class="mb-3">
     <label class="form-label">Picture</label>
     {{form.path}}
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  {% endcomment %}
+  <button type="submit" class="btn btn-primary">Публікувати</button>
 </form>
 {% endblock %}
