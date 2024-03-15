@@ -19,6 +19,10 @@ requests = "^2.31.0"
 beautifulsoup4 = "^4.12.3"
 django = "^5.0.2"
 pillow = "^10.2.0"
+fastapi = "^0.110.0"
+uvicorn = {extras = ["standard"], version = "^0.28.0"}
+sqlalchemy = "^2.0.28"
+pydantic = {extras = ["email"], version = "^2.6.4"}
 
 
 [build-system]
