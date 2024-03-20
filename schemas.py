@@ -23,7 +23,8 @@ class CatModel(BaseModel):
 
 class CatVaccinatedModel(BaseModel):
     vaccinated: bool = False    
-
+    description: str
+    owner_id: int = Field(1, gt=0)
 
 class CatResponse(BaseModel):
     id: int = 1
