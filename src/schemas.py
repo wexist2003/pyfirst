@@ -3,8 +3,8 @@ from pydantic import BaseModel, EmailStr
 
 
 class OwnerModel(BaseModel):
-    name: datetime
-    surname: datetime
+    name: str
+    surname: str
     email: EmailStr
     birthday: date
     
@@ -12,8 +12,8 @@ class OwnerModel(BaseModel):
 
 class OwnerResponse(BaseModel):
     id: int = 1
-    name: datetime
-    surname: datetime
+    name: str
+    surname: str
     email: EmailStr
     birthday: date
     created_at: datetime
